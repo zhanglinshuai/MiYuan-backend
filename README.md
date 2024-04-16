@@ -1,1 +1,2 @@
 # MiYuan-backend
+基于SpringBoot和Vue的移动端网页,可以供用户找到志同道合的好友进行组队,与用户管理中心项目互通
