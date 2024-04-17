@@ -11,5 +11,14 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
-    pathmatch:
+    path match:
       matching-strategy: ant_path_matcher
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: flag
+
