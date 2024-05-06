@@ -95,4 +95,20 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean deleteUserById(long id,HttpServletRequest request);
+
+    /**
+     * 根据用户标签搜索用户列表，有任何一个标签存在就可以搜索出来（Sql版）
+     * @param tagList
+     * @return
+     */
+    List<User> selectUserByTagsBySQL(List<String> tagList);
+
+    /**
+     * 根据用户标签搜索用户列表，只有所有标签都存在才可以搜索出来(内存)
+     * @param tagList
+     * @return
+     */
+    List<User> selectUserByTagsByMemory(List<String> tagList);
+
+
 }

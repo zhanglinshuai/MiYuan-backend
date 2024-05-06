@@ -43,3 +43,9 @@ u
 Esrc/main/java/com/example/demos/exception/GlobalExceptionHandler.java,d\a\da62e3f05b8cb2c92ccef2c1d0ecf82fa2d6d08d
 l
 <src/main/java/com/example/demos/exception/BaseException.java,a\6\a6c6f4d88ba337db2381a005b4d7a0de2254aba9
+i
+9src/main/java/com/example/demos/commons/BaseResponse.java,7\7\77208051bb525f14870787249c353cf8bbb0f390
+f
+6src/main/java/com/example/demos/commons/ErrorCode.java,e\e\ee603fbb458368f023cfa7d5a6ed5542bdbbbad8
+h
+8src/main/java/com/example/demos/commons/ResultUtils.java,f\d\fd0764d8db9a3dd90fc4e2ffdf8adf7685d16036

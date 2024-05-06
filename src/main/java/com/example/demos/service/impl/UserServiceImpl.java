@@ -7,13 +7,17 @@ import com.example.demos.exception.BaseException;
 import com.example.demos.pojo.domain.User;
 import com.example.demos.service.UserService;
 import com.example.demos.mapper.UserMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -22,13 +26,13 @@ import static com.example.demos.constants.UserConstants.*;
 import static com.example.demos.constants.UserConstants.USER_LOGIN_STATUS;
 
 /**
-* @author 86175
-* @description 针对表【user】的数据库操作Service实现
-* @createDate 2024-04-17 00:02:53
-*/
+ * @author 86175
+ * @description 针对表【user】的数据库操作Service实现
+ * @createDate 2024-04-17 00:02:53
+ */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
-    implements UserService{
+        implements UserService {
     @Resource
     private UserMapper userMapper;
 
@@ -37,28 +41,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public long userRegister(String userAccount, String userPassword, String checkPassword, String planetCode) {
         //非空校验
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, planetCode)) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"参数为空");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "参数为空");
         }
         //账号长度最少为4位
         if (userAccount.length() < 4) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"账号长度过短");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "账号长度过短");
         }
         //密码长度最少为6位
         if (userPassword.length() < 6 || checkPassword.length() < 6) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"密码长度过短");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "密码长度过短");
         }
         //密码与校验密码是否相等
         if (!userPassword.equals(checkPassword)) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"密码与校验密码不同");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "密码与校验密码不同");
         }
         //星球编号长度最多为5位
         if (planetCode.length() > 4) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"星球编号过长");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "星球编号过长");
         }
         //校验账号中是否含有非法字符
         boolean result = verifyUserAccount(userAccount);
-        if (!result){
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"账号含有特殊字符");
+        if (!result) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "账号含有特殊字符");
         }
         //对密码进行加密
         String safetyPassword = DigestUtils.md5DigestAsHex((userPassword + SALT).getBytes());
@@ -68,7 +72,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         Long count = userMapper.selectCount(userQueryWrapper);
         //如果count>0说明账号重复了
         if (count > 0) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"账号重复了");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "账号重复了");
         }
         //创建新用户,并将新用户设置值，将密码密文存储到数据库中
         User user = new User();
@@ -79,7 +83,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         boolean save = this.save(user);
         //如果save为false
         if (!save) {
-            throw new BaseException(ErrorCode.SYSTEM_ERROR,"插入失败");
+            throw new BaseException(ErrorCode.SYSTEM_ERROR, "插入失败");
         }
         return user.getId();
     }
@@ -89,20 +93,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public User userLogin(String userAccount, String userPassword, HttpServletRequest request) {
         //非空判断
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"参数为空");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "参数为空");
         }
         //账号长度不少于4位
         if (userAccount.length() < 4) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"账号长度过短");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "账号长度过短");
         }
         //密码不少于6位
         if (userPassword.length() < 6) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"密码长度过短");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "密码长度过短");
         }
         //校验用户账号含有特殊字符
         boolean result = verifyUserAccount(userAccount);
         if (!result) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"账号含有特殊字符");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "账号含有特殊字符");
         }
         //从数据库中查询用户，校验账号和密码与存入数据库中的密文密码是否相等
         String safetyPassword = DigestUtils.md5DigestAsHex((userPassword + SALT).getBytes());
@@ -110,8 +114,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         userQueryWrapper.eq("userAccount", userAccount);
         userQueryWrapper.eq("userPassword", safetyPassword);
         User user = this.getOne(userQueryWrapper);
-        if (user==null){
-            throw new BaseException(ErrorCode.SYSTEM_ERROR,"未查到该用户");
+        if (user == null) {
+            throw new BaseException(ErrorCode.SYSTEM_ERROR, "未查到该用户");
         }
         //对用户信息进行脱敏
         User safetyUser = getSafetyUser(user);
@@ -126,7 +130,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public boolean userLogout(HttpServletRequest request) {
-        if (request==null){
+        if (request == null) {
             throw new BaseException(ErrorCode.PARAMS_ERROR);
         }
         request.getSession().removeAttribute(USER_LOGIN_STATUS);
@@ -146,14 +150,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         //是否为管理员校验
         boolean admin = isAdmin(request);
         if (!admin) {
-            throw new BaseException(ErrorCode.NO_AUTH,"该用户不是管理员");
+            throw new BaseException(ErrorCode.NO_AUTH, "该用户不是管理员");
         }
         //是管理员根据用户名称进行查询用户信息
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("username", username);
         User user = this.getOne(userQueryWrapper);
         if (user == null) {
-            throw new BaseException(ErrorCode.SYSTEM_ERROR,"未查到该用户");
+            throw new BaseException(ErrorCode.SYSTEM_ERROR, "未查到该用户");
         }
         //对用户信息进行脱敏,返回脱敏后的用户信息
         return getSafetyUser(user);
@@ -161,13 +165,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public User getCurrentUser(HttpServletRequest request) {
-        if (request==null){
+        if (request == null) {
             throw new BaseException(ErrorCode.PARAMS_ERROR);
         }
         //从登录态中获取登录用户信息
         User user = getUser(request);
         if (user == null) {
-            throw new BaseException(ErrorCode.NOT_LOGIN,"用户未登录");
+            throw new BaseException(ErrorCode.NOT_LOGIN, "用户未登录");
         }
         //返回脱敏后的用户信息
         return getSafetyUser(user);
@@ -176,7 +180,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public List<User> getUserList(HttpServletRequest request) {
-        if (request==null){
+        if (request == null) {
             throw new BaseException(ErrorCode.PARAMS_ERROR);
         }
         User user = getUser(request);
@@ -186,7 +190,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         //判断用户是否为管理员
         boolean admin = isAdmin(request);
         if (!admin) {
-            throw new BaseException(ErrorCode.NO_AUTH,"该用户不是管理员");
+            throw new BaseException(ErrorCode.NO_AUTH, "该用户不是管理员");
         }
         //直接查询用户列表
         List<User> userList = this.list();
@@ -196,7 +200,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
 
     @Override
-    public boolean deleteUserById(long id,HttpServletRequest request) {
+    public boolean deleteUserById(long id, HttpServletRequest request) {
         //从登录态中取出用户信息
         User user = getUser(request);
         if (user == null) {
@@ -204,14 +208,69 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         //校验用户是否为管理员
         boolean admin = isAdmin(request);
-        if (!admin){
-            throw new BaseException(ErrorCode.NO_AUTH,"该用户不是管理员");
+        if (!admin) {
+            throw new BaseException(ErrorCode.NO_AUTH, "该用户不是管理员");
         }
         boolean result = this.removeById(id);
-        if (!result){
-            throw new BaseException(ErrorCode.SYSTEM_ERROR,"删除用户失败");
+        if (!result) {
+            throw new BaseException(ErrorCode.SYSTEM_ERROR, "删除用户失败");
         }
         return true;
+    }
+
+    /**
+     * 根据标签查询用户，只要用户有其中一个标签就可以(sql版）
+     *
+     * @param tagList
+     * @return
+     */
+    @Override
+    public List<User> selectUserByTagsBySQL(List<String> tagList) {
+        //对tagList进行非空判断
+        if (CollectionUtils.isEmpty(tagList)) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        //遍历标签列表，将用户的所有标签添加到查询条件中
+        for (String tag : tagList) {
+            userQueryWrapper = userQueryWrapper.like("tag", tag);
+        }
+        //根据查询条件查询数据
+        List<User> userList = userMapper.selectList(userQueryWrapper);
+        return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
+    }
+
+    @Override
+    @Deprecated
+    public List<User> selectUserByTagsByMemory(List<String> tagList) {
+        //非空判断
+        if (CollectionUtils.isEmpty(tagList)) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        //查询出来所有用户
+        List<User> userList = userMapper.selectList(userQueryWrapper);
+        //由于标签是json数据,将json标签序列化成String类型
+        Gson gson = new Gson();
+        //将userList的所有标签查询出来
+        return userList.stream().filter(user -> {
+            String tags = user.getTags();
+            //标签非空判断
+            if (StringUtils.isNotBlank(tags)) {
+                return false;
+            }
+            //将json标签转换成字符串类型
+            Set<String> tagStr = gson.fromJson(tags, new TypeToken<Set<String>>() {
+            }.getType());
+            //判断用户的标签是否包含在要搜索的标签中，必须全部包含才能搜索到
+            for (String tag : tagStr) {
+                if (!tagList.contains(tag)) {
+                    return false;
+                }
+            }
+            return true;
+        }).map(this::getSafetyUser).collect(Collectors.toList());
     }
 
 
@@ -258,13 +317,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @param userAccount
      * @return
      */
-    public  boolean verifyUserAccount(String userAccount) {
+    public boolean verifyUserAccount(String userAccount) {
         String regEx = "[\\u00A0\\s\"`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         Pattern compile = Pattern.compile(regEx);
         Matcher matcher = compile.matcher(userAccount);
         //如果find找到成功之后，返回false
         if (matcher.find()) {
-            throw new BaseException(ErrorCode.PARAMS_ERROR,"用户账号含有特殊字符");
+            throw new BaseException(ErrorCode.PARAMS_ERROR, "用户账号含有特殊字符");
         }
         return true;
     }
@@ -275,7 +334,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @param request
      * @return
      */
-    private  User getUser(HttpServletRequest request) {
+    private User getUser(HttpServletRequest request) {
         //从登录态中获取用户信息
         Object obj = request.getSession().getAttribute(USER_LOGIN_STATUS);
         User user = (User) obj;

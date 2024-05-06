@@ -1,7 +1,11 @@
 
-|
-java:S1192•"YDefine a constant instead of duplicating this literal "è¯¥ç”¨æˆ·ä¸æ˜¯ç®¡ç†å‘˜" 3 times.(°ò×­øÿÿÿÿ8¼–ÎÙî1
-z
-java:S1488™"\Immediately return this expression instead of assigning it to the temporary variable "user".(°¤÷È8½–ÎÙî1
-M
-java:S5869†"*Remove duplicates in this character class.(«ÜßÉúÿÿÿÿ8Ñ–ÎÙî1
+¢
+java:S1192™"YDefine a constant instead of duplicating this literal "è¯¥ç”¨æˆ·ä¸æ˜¯ç®¡ç†å‘˜" 3 times.(°ò×­øÿÿÿÿ8Äùşïô1J$ded534d7-5794-4487-a877-6523abe74e10
+ 
+java:S1488Ô"\Immediately return this expression instead of assigning it to the temporary variable "user".(°¤÷È8Æùşïô1J$0f84273e-c060-4ff1-9874-f387cd25d1c4
+X
+java:S1133õ"5Do not forget to remove this deprecated code someday.(ï’­÷ÿÿÿÿÿ8Õ‹˜ğô1
+K
+java:S1123õ"(Add the missing @deprecated Javadoc tag.(ï’­÷ÿÿÿÿÿ8Ö‹˜ğô1
+s
+java:S5869Á"*Remove duplicates in this character class.(«ÜßÉúÿÿÿÿ8ëùşïô1J$033979cb-b0b9-4265-9906-ce8346fe7f39
