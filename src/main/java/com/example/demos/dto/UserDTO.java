@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
+
 public class UserDTO implements Serializable {
 
 

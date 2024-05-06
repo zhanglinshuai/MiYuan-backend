@@ -19,6 +19,7 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -345,16 +346,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             throw new BaseException(ErrorCode.NO_AUTH);
         }
         //todo 补充校验 如果用户没有更新任何信息，那么就报错
-        //如何进行没有修改信息的判断?判断要修改的字段前后的值是否相等
-        //将User的值赋给UserDTO，比较修改前后user是否和userDTO相等
-        UserDTO userDTO = new UserDTO();
-        BeanUtils.copyProperties(user,userDTO, UserDTO.class);
-        //修改用户信息
-        int result = userMapper.updateById(user);
-        //比较对象，如果userDTO与user相等，说明没有修改信息，直接报错
-        if (userDTO.equals(user)){
+        //从数据库中获取数据
+        User oldUser = userMapper.selectById(userId);
+        if (oldUser==null){
             throw new BaseException(ErrorCode.PARAMS_ERROR);
         }
+        //如果olderUser和用户传来的user相等，则报错
+        if (oldUser==user){
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        //修改用户信息
+        int result = userMapper.updateById(user);
+        
         if (result<0){
             throw new BaseException(ErrorCode.SYSTEM_ERROR);
         }
