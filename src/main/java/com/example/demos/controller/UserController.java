@@ -160,7 +160,14 @@ public class UserController {
         }
         return ResultUtils.success(true);
     }
-
+    @GetMapping("/search/tags")
+    public BaseResponse<List<User>> searchUserByTag(List<String> tagList) {
+        if (CollectionUtils.isEmpty(tagList)) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        List<User> userList = userService.selectUserByTagsBySQL(tagList);
+        return ResultUtils.success(userList);
+    }
 
 
 
