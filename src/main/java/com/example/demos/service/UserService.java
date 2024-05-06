@@ -110,5 +110,15 @@ public interface UserService extends IService<User> {
      */
     List<User> selectUserByTagsByMemory(List<String> tagList);
 
+    /**
+     * 修改用户信息
+     * @param request
+     * @param loginUser
+     * @return
+     */
+    int updateUserInfo(HttpServletRequest request,User loginUser);
+
+
+
 
 }

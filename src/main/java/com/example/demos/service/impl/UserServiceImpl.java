@@ -36,7 +36,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Resource
     private UserMapper userMapper;
 
-
+    /**
+     * 用户注册
+     * @param userAccount
+     * @param userPassword
+     * @param checkPassword
+     * @param planetCode
+     * @return
+     */
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword, String planetCode) {
         //非空校验
@@ -88,7 +95,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return user.getId();
     }
 
-
+    /**
+     * 用户登录
+     * @param userAccount  用户账号
+     * @param userPassword 用户密码
+     * @param request
+     * @return
+     */
     @Override
     public User userLogin(String userAccount, String userPassword, HttpServletRequest request) {
         //非空判断
@@ -127,7 +140,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return safetyUser;
     }
 
-
+    /**
+     * 用户注销
+     * @param request
+     * @return
+     */
     @Override
     public boolean userLogout(HttpServletRequest request) {
         if (request == null) {
@@ -137,6 +154,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return true;
     }
 
+    /**
+     * 根据用户名查询用户
+     * @param username
+     * @param request
+     * @return
+     */
     @Override
     public User queryUserByName(String username, HttpServletRequest request) {
         //非空校验
@@ -163,6 +186,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return getSafetyUser(user);
     }
 
+    /**
+     * 获取当前用户
+     * @param request
+     * @return
+     */
     @Override
     public User getCurrentUser(HttpServletRequest request) {
         if (request == null) {
@@ -177,7 +205,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return getSafetyUser(user);
     }
 
-
+    /**
+     * 获取用户列表
+     * @param request
+     * @return
+     */
     @Override
     public List<User> getUserList(HttpServletRequest request) {
         if (request == null) {
@@ -198,7 +230,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
     }
 
-
+    /**
+     * 根据用户id删除用户
+     * @param id  要删除的用户id
+     * @param request
+     * @return
+     */
     @Override
     public boolean deleteUserById(long id, HttpServletRequest request) {
         //从登录态中取出用户信息
@@ -240,6 +277,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
     }
 
+    /**
+     * 根据标签搜索用户，用户必须有传入的所有标签才可以查询到(内存版)
+     * @param tagList
+     * @return
+     */
     @Override
     @Deprecated
     public List<User> selectUserByTagsByMemory(List<String> tagList) {
@@ -271,6 +313,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             }
             return true;
         }).map(this::getSafetyUser).collect(Collectors.toList());
+    }
+
+    /**
+     * 修改用户信息
+     * @param request
+     * @param user
+     * @return
+     */
+    @Override
+    public int updateUserInfo(HttpServletRequest request,User user) {
+        if (user==null){
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        //判断用户是否登录
+        if (request==null){
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        Object obj = request.getSession().getAttribute(USER_LOGIN_STATUS);
+        User loginUser = (User) obj;
+        if (loginUser==null){
+            throw new BaseException(ErrorCode.NOT_LOGIN);
+        }
+
+        //判断登录的用户是否是本人,登录用户是否为管理员
+        Long userId = user.getId();
+        Long loginUserId = loginUser.getId();
+        if (!loginUserId.equals(userId) && !isAdmin(request)){
+            throw new BaseException(ErrorCode.NO_AUTH);
+        }
+        //修改用户信息
+        int result = userMapper.updateById(loginUser);
+        if (result<0){
+            throw new BaseException(ErrorCode.SYSTEM_ERROR);
+        }
+        return result;
     }
 
 
