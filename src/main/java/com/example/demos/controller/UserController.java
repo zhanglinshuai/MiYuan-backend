@@ -171,7 +171,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public BaseResponse<Integer> updateUser(User user, HttpServletRequest request) {
+    public BaseResponse<Integer> updateUser(@RequestBody User user, HttpServletRequest request) {
         if (request == null) {
             throw new BaseException(ErrorCode.PARAMS_ERROR);
         }
@@ -179,7 +179,7 @@ public class UserController {
             throw new BaseException(ErrorCode.PARAMS_ERROR);
         }
         //调用业务
-        int result = userService.updateUserInfo(request, user);
+        int result = userService.updateUserInfo(user, request);
         return ResultUtils.success(result);
     }
 

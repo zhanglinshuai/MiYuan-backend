@@ -3,6 +3,7 @@ package com.example.demos.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demos.commons.ErrorCode;
+import com.example.demos.dto.UserDTO;
 import com.example.demos.exception.BaseException;
 import com.example.demos.pojo.domain.User;
 import com.example.demos.service.UserService;
@@ -10,6 +11,7 @@ import com.example.demos.mapper.UserMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
@@ -322,7 +324,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @return
      */
     @Override
-    public int updateUserInfo(HttpServletRequest request,User user) {
+    public int updateUserInfo(User user,HttpServletRequest request) {
         if (user==null){
             throw new BaseException(ErrorCode.PARAMS_ERROR);
         }
@@ -342,8 +344,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (!loginUserId.equals(userId) && !isAdmin(request)){
             throw new BaseException(ErrorCode.NO_AUTH);
         }
+        //todo 补充校验 如果用户没有更新任何信息，那么就报错
+        //如何进行没有修改信息的判断?判断要修改的字段前后的值是否相等
+        //将User的值赋给UserDTO，比较修改前后user是否和userDTO相等
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(user,userDTO, UserDTO.class);
         //修改用户信息
-        int result = userMapper.updateById(loginUser);
+        int result = userMapper.updateById(user);
+        //比较对象，如果userDTO与user相等，说明没有修改信息，直接报错
+        if (userDTO.equals(user)){
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
         if (result<0){
             throw new BaseException(ErrorCode.SYSTEM_ERROR);
         }
