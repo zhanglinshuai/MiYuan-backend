@@ -118,6 +118,12 @@ public interface UserService extends IService<User> {
      */
     int updateUserInfo(User user,HttpServletRequest request);
 
+    /**
+     * 从登录态中获取用户信息
+     * @param request
+     * @return
+     */
+    User getUser(HttpServletRequest request);
 
 
 

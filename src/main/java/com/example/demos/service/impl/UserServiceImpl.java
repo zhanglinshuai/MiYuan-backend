@@ -425,7 +425,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @param request
      * @return
      */
-    private User getUser(HttpServletRequest request) {
+    public User getUser(HttpServletRequest request) {
         //从登录态中获取用户信息
         Object obj = request.getSession().getAttribute(USER_LOGIN_STATUS);
         User user = (User) obj;

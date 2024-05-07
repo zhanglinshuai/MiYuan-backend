@@ -11,12 +11,15 @@ import com.example.demos.request.LoginRequest;
 import com.example.demos.request.RegisterRequest;
 import com.example.demos.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RequestMapping("/user")
 @RestController
@@ -24,6 +27,10 @@ import java.util.List;
 public class UserController {
     @Resource
     private UserService userService;
+
+
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     @PostMapping("/register")
     public BaseResponse<Long> userRegister(@RequestBody RegisterRequest registerRequest) {
@@ -186,9 +193,27 @@ public class UserController {
     }
 
     @GetMapping("/recommend")
-    public BaseResponse<Page<User>> recommendUser(long pageNum,long pageSize) {
+    public BaseResponse<Page<User>> recommendUser(long pageNum, long pageSize, HttpServletRequest request) {
+        //缓存预热
+        //设计缓存的key MiYuan:user:recommend:userId
+        User user = userService.getUser(request);
+        String redisKey = String.format("MiYuan:user:recommend:%s", user.getId());
+        //先判断是否存在缓存，如果存在就读缓存
+        Page<User> userPage = (Page<User>) redisTemplate.opsForValue().get(redisKey);
+        if (userPage != null) {
+            return ResultUtils.success(userPage);
+        }
+        //如果不存在就读数据库
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        Page<User> userList = userService.page(new Page<>((pageNum-1)*pageSize,pageSize), userQueryWrapper);
-        return ResultUtils.success(userList);
+        userPage = userService.page(new Page<>((pageNum - 1) * pageSize, pageSize), userQueryWrapper);
+        //读完数据库后写缓存
+        try {
+            redisTemplate.opsForValue().set(redisKey, userPage,30000, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return ResultUtils.success(userPage);
     }
+
+
 }
