@@ -1,5 +1,7 @@
 package com.example.demos.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demos.commons.BaseResponse;
 import com.example.demos.commons.ErrorCode;
 import com.example.demos.commons.ResultUtils;
@@ -183,5 +185,10 @@ public class UserController {
         return ResultUtils.success(result);
     }
 
-
+    @GetMapping("/recommend")
+    public BaseResponse<Page<User>> recommendUser(long pageNum,long pageSize) {
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        Page<User> userList = userService.page(new Page<>((pageNum-1)*pageSize,pageSize), userQueryWrapper);
+        return ResultUtils.success(userList);
+    }
 }

@@ -51,3 +51,11 @@ h
 8src/main/java/com/example/demos/commons/ResultUtils.java,f\d\fd0764d8db9a3dd90fc4e2ffdf8adf7685d16036
 `
 0src/main/java/com/example/demos/dto/UserDTO.java,c\d\cd2df7562219edf27128e4223671d9c8a028cf66
+i
+9src/main/java/com/example/demos/util/InsertUserUtils.java,a\2\a2f17538cd5f6c76df79bfa8a71943fdc5c5545f
+i
+9src/main/java/com/example/demos/once/InsertUserUtils.java,a\3\a3ac6e7d3684bb7979bf2b56223efb04bb31f388
+l
+<src/test/java/com/example/MiYuanBackendApplicationTests.java,0\6\062ee78814005d182cac6a67fdb98b0ca31e1bc6
+m
+=src/main/java/com/example/demos/config/MyBatisPlusConfig.java,7\a\7a16efad7e2916dc46cbee5524682c41009422e2

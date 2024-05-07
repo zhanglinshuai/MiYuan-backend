@@ -357,7 +357,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         //修改用户信息
         int result = userMapper.updateById(user);
-        
+
         if (result<0){
             throw new BaseException(ErrorCode.SYSTEM_ERROR);
         }
