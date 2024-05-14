@@ -1,0 +1,10 @@
+
+–
+java:S3981?"SThe size of "userTeamVoList" is always ">=0", so update this test to use isEmpty().(Ø…ÇĞ8ä¢»÷1J$c7d8cbfb-a9da-43a0-8301-86ace2805086
+	java:S100V"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŞÜ·Ë8æ¢»÷1J$2a610c76-fc0b-4ba5-8396-e014656f4b1d
+•	java:S100e"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ø˜“ÿÿÿÿÿ8æ¢»÷1J$d9a5d185-1c0a-42b6-8653-803fe6468752
+	java:S100t"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úóıß8ç¢»÷1J$1fbe40c1-960a-428e-bf6a-5f7b6b091973
+š
+java:S3981ˆ"QThe size of "userJoinTeam" is always ">=0", so update this test to use isEmpty().(ºè°›şÿÿÿÿ8ç¢»÷1J$50bc4867-cd0c-4b4b-bd78-a4dd9f551afc
+œ
+java:S3981”"SThe size of "userCreateTeam" is always ">=0", so update this test to use isEmpty().(¿¿ğÀúÿÿÿÿ8ÅÖ»÷1J$039d2cc6-f261-407f-b753-63c4e304e25f
