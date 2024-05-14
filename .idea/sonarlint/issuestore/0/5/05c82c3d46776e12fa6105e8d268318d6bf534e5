@@ -1,23 +1,35 @@
 
 Š
-java:S1192Y"GDefine a constant instead of duplicating this literal "userId" 3 times.(Þ¦¬Ÿ8ÃÉô²÷1J$1803a058-d92c-425f-836c-94181b12bb2a
+java:S1192Z"GDefine a constant instead of duplicating this literal "userId" 6 times.(Þ¦¬Ÿ8Œ¼ü¹÷1J$30493593-ef55-4a34-9931-72f244e71439
 r
-java:S1066N"/Merge this if statement with the enclosing one.(·ÐÝë8ÄÉô²÷1J$9785e550-e187-4118-a36e-4ae2c18c0601
+java:S1066O"/Merge this if statement with the enclosing one.(·ÐÝë8¼ü¹÷1J$8dd7b278-acbf-46ad-9886-20a3964a2fab
 s
-java:S1066"/Merge this if statement with the enclosing one.(ê¾Š’8ÄÉô²÷1J$2d589d9b-98f9-4d67-9f14-fb3750569218
+java:S1066‚"/Merge this if statement with the enclosing one.(ê¾Š’8Ž¼ü¹÷1J$175ab456-4309-4f9d-a375-fbb6668739b8
 s
-java:S1066‚"/Merge this if statement with the enclosing one.(ÿÀüí8ÄÉô²÷1J$4d545a41-e0a3-4922-b011-3e49cc81e33c
+java:S1066ƒ"/Merge this if statement with the enclosing one.(ÿÀüí8Ž¼ü¹÷1J$d4ac1002-5ffe-4b9e-93ad-c7f83b1d4b83
 s
-java:S1066Š"/Merge this if statement with the enclosing one.(ß°ãŒ8ÄÉô²÷1J$e8bc2f49-6d43-4b56-ae76-a435a61b24e5
+java:S1066‹"/Merge this if statement with the enclosing one.(ß°ãŒ8Ž¼ü¹÷1J$cee1275b-b5a9-481a-8880-9e16e57e0ac4
 x
-java:S1066†"/Merge this if statement with the enclosing one.(¥ûÐÓþÿÿÿÿ8ÄÉô²÷1J$1221b94d-bc1c-4855-b150-29ece6b9cde5
-”	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖÈ†8ÉÉô²÷1J$0abe56e6-3cd1-4cbd-b0d4-70fd18621f24
-™	java:S117¼"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÃž€ÿÿÿÿÿ8ÙÉô²÷1J$53a1a369-94be-4539-9c22-6b1338f60786
+java:S1066‡"/Merge this if statement with the enclosing one.(¥ûÐÓþÿÿÿÿ8Ž¼ü¹÷1J$3e631574-7e84-4b37-b976-1e3301636528
+”	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖÈ†8¼ü¹÷1J$3facde35-b829-4338-a517-a2d6fb9a4ce2
+™	java:S117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÃž€ÿÿÿÿÿ8¼ü¹÷1J$2135a4c3-11ba-494a-865c-deacf5d25ea8
+™	java:S117¿"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àçˆýÿÿÿÿ8¼ü¹÷1J$794dae72-23d5-4d52-b451-e26c2d74abda
+™	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Êâºšýÿÿÿÿ8¼ü¹÷1J$fe664e30-c60e-440f-a17b-62b3482e230e
+Š
+java:S2259ƒ"FA "NullPointerException" could be thrown; "password" is nullable here.(ÿÀüí8ç½ü¹÷1J$7987bed8-f991-4bd0-8163-10876c92b068
+
+java:S2259š"DA "NullPointerException" could be thrown; "teamId" is nullable here.(¶ÚÙßøÿÿÿÿ8ç½ü¹÷1J$40c12202-90d6-483b-900b-fd9ebaa50259
 •
-java:S37765"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(½–‰Ã8èÉô²÷1J$bdb7250d-2344-4943-85e1-ddbc5daf4c0b
+java:S37766"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(½–‰Ã8ë½ü¹÷1J$24ff7362-f06d-4db3-a289-e1692f9f5464
 €
-java:S1854:"8Remove this useless assignment to local variable "user".(¢¬Ëåÿÿÿÿÿ8éÉô²÷1J$b3424e9f-61bd-4f70-a897-2190cf84dd94
+java:S1854;"8Remove this useless assignment to local variable "user".(¢¬Ëåÿÿÿÿÿ8ì½ü¹÷1J$9e3a1a18-92b0-4f63-822d-32dac9cca428
 q
-java:S1481:")Remove this unused "user" local variable.(¢¬Ëåÿÿÿÿÿ8ëÉô²÷1J$50ee690e-c312-4680-992f-f261596c1085
+java:S1481;")Remove this unused "user" local variable.(¢¬Ëåÿÿÿÿÿ8î½ü¹÷1J$a9deb2b9-7484-4242-806f-f0d6f3741ef5
 •
-java:S3776r"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¹¯¾8ïÉô²÷1J$44272728-4c0e-45ae-be22-963c39fcea7f
+java:S3776s"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¹¯¾8ð½ü¹÷1J$9e36b9aa-9d73-49e8-a182-52cf1c9a9b74
+•
+java:S3981¼"QThe size of "userteamList" is always ">=0", so update this test to use isEmpty().(ÙÚƒ«8ú½ü¹÷1J$28c7f091-989c-4e83-9ce6-e5719c98c93e
+ž
+java:S3981ü"UThe size of "userJoinTeamList" is always ">=0", so update this test to use isEmpty().(®ñ•ùûÿÿÿÿ8ü½ü¹÷1J$e09e5378-bcea-4520-bcbc-a1d49281b5cc
+–
+java:S3981‘"MThe size of "teamList" is always ">=0", so update this test to use isEmpty().(ü®¾áùÿÿÿÿ8ý½ü¹÷1J$492712a7-a39c-4289-8157-98a2f327597d

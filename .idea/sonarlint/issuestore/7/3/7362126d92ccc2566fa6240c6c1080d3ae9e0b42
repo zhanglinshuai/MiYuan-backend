@@ -1,2 +1,8 @@
 
-•	java:S1006"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·ïÿ™ÿÿÿÿÿ8à Á±÷1J$a3523d21-9dcb-4d71-a988-9da2f204f3cc
+•	java:S1007"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·ïÿ™ÿÿÿÿÿ8°ÅÖ¹÷1J$dd99b76f-8afb-48ed-a444-d392a54279a8
+•	java:S100>"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûÏÁûùÿÿÿÿ8°ÅÖ¹÷1J$4509bee2-5cd1-4b71-8fef-0fa73b6c3451
+•	java:S100F"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ìåú¿ûÿÿÿÿ8°ÅÖ¹÷1J$0b91992f-b33d-497c-89f7-0bdb4566c909
+Ÿ
+java:S1128"WRemove this unused import 'com.baomidou.mybatisplus.extension.plugins.pagination.Page'.(±Ù¥Éúÿÿÿÿ8íÂò¹÷1J$75374acf-89df-4085-b762-858b888e76ff
+˜
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.RequestBody'.(â­½Àıÿÿÿÿ8íÂò¹÷1J$38127171-f846-43ac-899d-868277685aa8

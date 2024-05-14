@@ -79,3 +79,5 @@ n
 >src/main/java/com/example/demos/request/TeamUpdateRequest.java,1\4\148c3f5e291f6c33899baa8521585a5b507723b2
 o
 ?src/main/java/com/example/demos/request/UserAddTeamRequest.java,6\4\642ff4bfbb97aba8d212e78b25a94ecd4d405bb0
+p
+@src/main/java/com/example/demos/request/UserQuitTeamRequest.java,e\c\ecaf92ae22a27250f0b5ab02d80196fe5d9ddc69

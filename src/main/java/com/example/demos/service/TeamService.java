@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.demos.request.TeamQueryRequest;
 import com.example.demos.request.TeamUpdateRequest;
 import com.example.demos.request.UserAddTeamRequest;
+import com.example.demos.request.UserQuitTeamRequest;
 import com.example.demos.vo.UserTeamVo;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -52,5 +53,35 @@ public interface TeamService extends IService<Team> {
      * @return
      */
     int UserAddTeam(UserAddTeamRequest userAddTeamRequest,HttpServletRequest request);
+
+    /**
+     * 用户退出队伍
+     * @param userQuitTeamRequest
+     * @return
+     */
+    int UserQuitTeam(UserQuitTeamRequest userQuitTeamRequest,HttpServletRequest request);
+
+    /**
+     * 队长解散队伍
+     * @param id
+     * @param request
+     * @return
+     */
+    int DisbandTeam(Long id, HttpServletRequest request);
+
+    /**
+     * 获取当前用户已加入的队伍
+     * @param request
+     * @return
+     */
+    List<Team> getUserJoinTeam(HttpServletRequest request);
+
+    /**
+     * 获取当前用户创建的队伍
+     * @param request
+     * @return
+     */
+    List<Team> getUserCreateTeam(HttpServletRequest request);
+
 
 }

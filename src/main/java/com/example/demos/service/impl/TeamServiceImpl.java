@@ -12,6 +12,7 @@ import com.example.demos.pojo.domain.Userteam;
 import com.example.demos.request.TeamQueryRequest;
 import com.example.demos.request.TeamUpdateRequest;
 import com.example.demos.request.UserAddTeamRequest;
+import com.example.demos.request.UserQuitTeamRequest;
 import com.example.demos.service.TeamService;
 import com.example.demos.service.UserService;
 import com.example.demos.service.UserteamService;
@@ -270,7 +271,138 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         return userteamMapper.insert(userteam);
     }
 
-    
+    @Override
+    public int UserQuitTeam(UserQuitTeamRequest userQuitTeamRequest, HttpServletRequest request) {
+        //校验参数
+        if (userQuitTeamRequest == null) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        Long teamId = userQuitTeamRequest.getId();
+        //校验队伍是否存在
+        if (teamId != null || teamId <= 0) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        //检验用户是否加入队伍
+        User user = userService.getUser(request);
+        if (user == null) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        Long userId = user.getId();
+        QueryWrapper<Userteam> userteamQueryWrapper = new QueryWrapper<>();
+        userteamQueryWrapper.eq("id", teamId);
+        userteamQueryWrapper.eq("userId", userId);
+        Long count = userteamMapper.selectCount(userteamQueryWrapper);
+        if (count <= 0) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        //如果队伍只剩1个人，队伍直接解散
+        userteamQueryWrapper = new QueryWrapper<>();
+        userteamQueryWrapper.eq("id", teamId);
+        Long result = userteamMapper.selectCount(userteamQueryWrapper);
+        if (result == 1) {
+            boolean removeById = this.removeById(teamId);
+            if (!removeById) {
+                throw new BaseException(ErrorCode.SYSTEM_ERROR);
+            }
+        }
+        //校验用户是否是队长
+        Long createTeamId = userQuitTeamRequest.getUserId();
+        if (userId.equals(createTeamId)) {
+            //如果还有其他人，如果是队长退出队伍，将权限转给id第二小的用户
+            QueryWrapper<Userteam> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("id", teamId);
+            queryWrapper.last("order by id asc limit 2");
+            List<Userteam> userteamList = userteamMapper.selectList(queryWrapper);
+            if (CollectionUtils.isEmpty(userteamList) || userteamList.size() < 0) {
+                throw new BaseException(ErrorCode.PARAMS_ERROR);
+            }
+            Userteam NewUserteam = userteamList.get(1);
+            Long nextTeamLeaderId = NewUserteam.getUserId();
+            Team nextTeam = new Team();
+            nextTeam.setId(teamId);
+            nextTeam.setUserId(nextTeamLeaderId);
+            boolean updateById = this.updateById(nextTeam);
+            if (!updateById) {
+                throw new BaseException(ErrorCode.SYSTEM_ERROR);
+            }
+        }
+        //如果用户不是队长，直接退出队伍
+        int delete = userteamMapper.delete(userteamQueryWrapper);
+        if (delete < 0) {
+            throw new BaseException(ErrorCode.SYSTEM_ERROR);
+        }
+        return delete;
+    }
+
+    @Override
+    public int DisbandTeam(Long id, HttpServletRequest request) {
+        if (id == null) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        if (request == null) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        User user = userService.getUser(request);
+        Team team = teamMapper.selectById(id);
+        Long createTeamId = team.getUserId();
+        Long userId = user.getId();
+        //校验是不是队伍的队长
+        if (!userId.equals(createTeamId)) {
+            throw new BaseException(ErrorCode.NO_AUTH);
+        }
+        //移除所有加入队伍的关联信息
+        QueryWrapper<Userteam> userteamQueryWrapper = new QueryWrapper<>();
+        userteamQueryWrapper.eq("id", id);
+        //移除所有加入队伍的关联信息
+        int delete = userteamMapper.delete(userteamQueryWrapper);
+        if (delete < 0) {
+            throw new BaseException(ErrorCode.SYSTEM_ERROR);
+        }
+        //移除队伍
+        int deleteById = teamMapper.deleteById(id);
+        if (deleteById < 0) {
+            throw new BaseException(ErrorCode.SYSTEM_ERROR);
+        }
+        return delete;
+    }
+
+    @Override
+    public List<Team> getUserJoinTeam(HttpServletRequest request) {
+        if (request == null) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        List<Team> teamList = new ArrayList<>();
+        User user = userService.getUser(request);
+        Long userId = user.getId();
+        QueryWrapper<Userteam> userteamQueryWrapper = new QueryWrapper<>();
+        userteamQueryWrapper.eq("userId", userId);
+        List<Userteam> userJoinTeamList = userteamMapper.selectList(userteamQueryWrapper);
+        if (CollectionUtils.isEmpty(userJoinTeamList) && userJoinTeamList.size() < 0) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        for (Userteam userteam : userJoinTeamList) {
+            Long teamId = userteam.getTeamId();
+            Team team = teamMapper.selectById(teamId);
+            teamList.add(team);
+        }
+        return teamList;
+    }
+
+    @Override
+    public List<Team> getUserCreateTeam(HttpServletRequest request) {
+        if (request==null){
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        User user = userService.getUser(request);
+        Long LoginUserId = user.getId();
+        QueryWrapper<Team> teamQueryWrapper = new QueryWrapper<>();
+        teamQueryWrapper.eq("userId", LoginUserId);
+        List<Team> teamList = teamMapper.selectList(teamQueryWrapper);
+        if (CollectionUtils.isEmpty(teamList) || teamList.size() < 0) {
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
+        return teamList;
+    }
 }
 
 
