@@ -1,0 +1,8 @@
+
+p	java:S116="URename this field "HasJoinNum" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Ð¸G8ù˜ö±÷1
+z	java:S116B"YRename this field "HasJoinUserNum" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±î¾™þÿÿÿÿ8ù˜ö±÷1
+s	java:S116F"RRename this field "HasJoin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ý—÷¿úÿÿÿÿ8ù˜ö±÷1
+m
+java:S1128"KRemove this unused import 'com.baomidou.mybatisplus.annotation.TableField'.(òëðýÿÿÿÿÿ8ü˜ö±÷1
+m
+java:S1128"KRemove this unused import 'com.baomidou.mybatisplus.annotation.TableLogic'.(Åñ‡Åþÿÿÿÿ8ü˜ö±÷1

@@ -1,19 +1,23 @@
 
+Š
+java:S1192Y"GDefine a constant instead of duplicating this literal "userId" 3 times.(Ş¦¬Ÿ8ÃÉô²÷1J$1803a058-d92c-425f-836c-94181b12bb2a
 r
-java:S1066J"/Merge this if statement with the enclosing one.(·Ğİë8‚ú°÷1J$1ff54163-cae1-4ed6-b22b-726cb261bfca
-r
-java:S1066}"/Merge this if statement with the enclosing one.(ê¾Š’8‚ú°÷1J$f9c29004-f9ac-4c43-9bc6-47ec0fbf6131
-r
-java:S1066~"/Merge this if statement with the enclosing one.(ÿÀüí8‚ú°÷1J$440295e4-5f63-409c-92d5-8b5183139d5d
+java:S1066N"/Merge this if statement with the enclosing one.(·Ğİë8ÄÉô²÷1J$9785e550-e187-4118-a36e-4ae2c18c0601
 s
-java:S1066†"/Merge this if statement with the enclosing one.(ß°ãŒ8‚ú°÷1J$a73c2325-e7d8-4350-935d-ffefcc0b50dd
-”	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖÈ†8ƒú°÷1J$c82c647b-4e4e-43ee-96a1-bd1ff833edb6
-™	java:S117¸"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÃ€ÿÿÿÿÿ8ƒú°÷1J$2f038699-a5fa-46ca-a4eb-05f38a03549f
+java:S1066"/Merge this if statement with the enclosing one.(ê¾Š’8ÄÉô²÷1J$2d589d9b-98f9-4d67-9f14-fb3750569218
+s
+java:S1066‚"/Merge this if statement with the enclosing one.(ÿÀüí8ÄÉô²÷1J$4d545a41-e0a3-4922-b011-3e49cc81e33c
+s
+java:S1066Š"/Merge this if statement with the enclosing one.(ß°ãŒ8ÄÉô²÷1J$e8bc2f49-6d43-4b56-ae76-a435a61b24e5
+x
+java:S1066†"/Merge this if statement with the enclosing one.(¥ûĞÓşÿÿÿÿ8ÄÉô²÷1J$1221b94d-bc1c-4855-b150-29ece6b9cde5
+”	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖÈ†8ÉÉô²÷1J$0abe56e6-3cd1-4cbd-b0d4-70fd18621f24
+™	java:S117¼"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÃ€ÿÿÿÿÿ8ÙÉô²÷1J$53a1a369-94be-4539-9c22-6b1338f60786
 •
-java:S37761"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(½–‰Ã8‹ú°÷1J$e313d08c-277d-43fe-b7eb-8e396089ac64
+java:S37765"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(½–‰Ã8èÉô²÷1J$bdb7250d-2344-4943-85e1-ddbc5daf4c0b
 €
-java:S18546"8Remove this useless assignment to local variable "user".(¢¬Ëåÿÿÿÿÿ8Œú°÷1J$c8fcef42-f4e2-4205-9068-a8a9a22ac57e
+java:S1854:"8Remove this useless assignment to local variable "user".(¢¬Ëåÿÿÿÿÿ8éÉô²÷1J$b3424e9f-61bd-4f70-a897-2190cf84dd94
 q
-java:S14816")Remove this unused "user" local variable.(¢¬Ëåÿÿÿÿÿ8ú°÷1J$4333adb3-509c-4c6b-8a38-e2f37ac76ef5
+java:S1481:")Remove this unused "user" local variable.(¢¬Ëåÿÿÿÿÿ8ëÉô²÷1J$50ee690e-c312-4680-992f-f261596c1085
 •
-java:S3776n"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¹¯¾8‘ú°÷1J$13f5d2f3-3fdb-42c9-9dfd-ff1cd3d87c09
+java:S3776r"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¹¯¾8ïÉô²÷1J$44272728-4c0e-45ae-be22-963c39fcea7f

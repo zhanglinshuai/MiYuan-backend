@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 public class TeamUpdateRequest implements Serializable {
@@ -52,5 +53,16 @@ public class TeamUpdateRequest implements Serializable {
      */
     private Integer teamStatus;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TeamUpdateRequest that = (TeamUpdateRequest) o;
+        return Objects.equals(id, that.id) && Objects.equals(userId, that.userId) && Objects.equals(name, that.name) && Objects.equals(password, that.password) && Objects.equals(description, that.description) && Objects.equals(maxNum, that.maxNum) && Objects.equals(expireTime, that.expireTime) && Objects.equals(teamStatus, that.teamStatus);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, name, password, description, maxNum, expireTime, teamStatus);
+    }
 }

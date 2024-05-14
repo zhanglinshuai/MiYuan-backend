@@ -5,6 +5,7 @@ import com.example.demos.pojo.domain.Team;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.demos.request.TeamQueryRequest;
 import com.example.demos.request.TeamUpdateRequest;
+import com.example.demos.request.UserAddTeamRequest;
 import com.example.demos.vo.UserTeamVo;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -44,6 +45,12 @@ public interface TeamService extends IService<Team> {
      */
     boolean updateTeam(TeamUpdateRequest teamUpdateRequest, HttpServletRequest request);
 
-
+    /**
+     * 用户加入队伍
+     * @param userAddTeamRequest
+     * @param request
+     * @return
+     */
+    int UserAddTeam(UserAddTeamRequest userAddTeamRequest,HttpServletRequest request);
 
 }

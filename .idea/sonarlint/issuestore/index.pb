@@ -77,3 +77,5 @@ b
 2src/main/java/com/example/demos/vo/UserTeamVo.java,0\0\0080f8ea699472d7d61dd140c23fe9b932922eb3
 n
 >src/main/java/com/example/demos/request/TeamUpdateRequest.java,1\4\148c3f5e291f6c33899baa8521585a5b507723b2
+o
+?src/main/java/com/example/demos/request/UserAddTeamRequest.java,6\4\642ff4bfbb97aba8d212e78b25a94ecd4d405bb0
