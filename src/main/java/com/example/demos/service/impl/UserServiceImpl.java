@@ -426,9 +426,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * @return
      */
     public User getUser(HttpServletRequest request) {
+        if (request==null){
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
         //从登录态中获取用户信息
         Object obj = request.getSession().getAttribute(USER_LOGIN_STATUS);
         User user = (User) obj;
+        if (user==null){
+            throw new BaseException(ErrorCode.PARAMS_ERROR);
+        }
         return user;
     }
 }

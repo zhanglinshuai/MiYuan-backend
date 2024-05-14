@@ -11,6 +11,7 @@ import com.example.demos.request.LoginRequest;
 import com.example.demos.request.RegisterRequest;
 import com.example.demos.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
@@ -28,7 +29,8 @@ public class UserController {
     @Resource
     private UserService userService;
 
-
+    @Resource
+    private RedissonClient redissonClient;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -205,7 +207,7 @@ public class UserController {
         }
         //如果不存在就读数据库
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userPage = userService.page(new Page<>((pageNum - 1) * pageSize, pageSize), userQueryWrapper);
+        userPage = userService.page(new Page<>(pageNum, pageSize), userQueryWrapper);
         //读完数据库后写缓存
         try {
             redisTemplate.opsForValue().set(redisKey, userPage,30000, TimeUnit.MILLISECONDS);
